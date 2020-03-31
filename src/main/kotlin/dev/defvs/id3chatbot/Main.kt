@@ -77,8 +77,7 @@ class Main : WebSocketListener(){
 		}
 
 		val request = Request.Builder()
-			//.url("wss://api.id3.fm/chat/socket.io/?EIO=3&transport=websocket")
-			.url("ws://demos.kaazing.com/echo")
+			.url("wss://api.id3.fm/chat/socket.io/?EIO=3&transport=websocket")
 			.cacheControl(CacheControl.Builder().noCache().build())
 			.build()
 		socket = client.newWebSocket(request, this)
