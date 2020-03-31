@@ -43,15 +43,19 @@ data class ChatCommand(
 	 * Formats the commmand's [response] with given [args].
 	 *
 	 * @param args Arguments given to the command
-	 *
+	 * @param sender command sender to replace with variables
 	 * @return the formatted [response] with arguments replaced, or [response] without modification if there are no arguments
 	 */
-	fun getFormattedResponse(args : List<String> = arrayListOf()): String{
+	fun getFormattedResponse(args : List<String> = arrayListOf(), sender : ID3User): String{
 		if (argCount == 0) return response
 
 		val output = response
 		for (i in 0 until argCount)
-			response.replace("%arg$i%", args[i], true)
+			output.replace("%arg$i%", args[i], true)
+
+		output.replace("%username%", sender.username, true)
+		output.replace("%firstname%", sender.username, true)
+
 		return output
 	}
 

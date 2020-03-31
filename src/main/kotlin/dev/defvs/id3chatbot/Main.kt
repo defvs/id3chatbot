@@ -153,14 +153,14 @@ class Main : WebSocketListener(){
 				}
 			}
 			"!addmod" -> {
-				if (config.isUserMod(message.user) && splitMessage.size == 2)
+				if ((config.isUserMod(message.user) && splitMessage.size == 2) || config.modUsers.isEmpty())
 					config.modUsers.add(splitMessage[1])
 			}
 			else -> {
 				config.commands.find { it.keyword == splitMessage[0] }?.let {
 					if (it.elevated && config.isUserMod(message.user)) return@let
 					if (splitMessage.size - 1 == it.argCount)
-						sendMessage(it.getFormattedResponse(splitMessage.drop(1)))
+						sendMessage(it.getFormattedResponse(splitMessage.drop(1), message.user))
 					else it.usageHelp?.let { usage -> sendMessage(usage) }
 				}
 			}
