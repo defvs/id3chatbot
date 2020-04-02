@@ -94,6 +94,11 @@ class Main : WebSocketListener(){
 
 		readLine()
 
+		writeConfig()
+		shutdown(0)
+	}
+
+	private fun writeConfig() {
 		logger.info("Saving config...")
 		try {
 			BufferedWriter(FileWriter(configFile!!, false)).run {
@@ -103,8 +108,6 @@ class Main : WebSocketListener(){
 		} catch (e: IOException) {
 			logger.warn("Could not save config file", e)
 		}
-
-		shutdown(0)
 	}
 
 	private fun shutdown(code: Int){
@@ -155,6 +158,7 @@ class Main : WebSocketListener(){
 				if ((config.isUserMod(message.user) && splitMessage.size == 2) || config.modUsers.isEmpty())
 					config.modUsers.add(splitMessage[1])
 			}
+			"!saveconfig" -> writeConfig()
 			else -> {
 				config.commands.find { it.keyword == splitMessage[0] }?.let {
 					if (it.elevated && config.isUserMod(message.user)) return@let
