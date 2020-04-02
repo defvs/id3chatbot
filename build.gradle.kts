@@ -8,7 +8,7 @@ plugins {
 }
 
 group = "com.defvs.id3chatbot"
-version = "1.0-SNAPSHOT"
+version = "preview0"
 
 repositories {
 	mavenCentral()
